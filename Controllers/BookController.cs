@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Policy;
-
+using System;
 namespace LibraryManagement.Controllers
 {
     public class BookController : Controller
@@ -99,11 +99,19 @@ namespace LibraryManagement.Controllers
         // POST: BookController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id,BookModel bookModel)
         {
            BookModel book = books.FirstOrDefault(x => x.id == id);
            books.Remove(book);
            return RedirectToAction(nameof(Index));
         }
+
+        public ActionResult Reserve(int id)
+        {
+            BookModel book = books.FirstOrDefault(x => x.id == id);
+            book.reserved = DateTime.Today.ToString("D");
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

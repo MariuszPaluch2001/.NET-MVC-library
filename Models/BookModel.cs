@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace LibraryManagement.Models
 {
@@ -16,8 +17,12 @@ namespace LibraryManagement.Models
         [DisplayName("Użytkownik")]
         public string user { get; set; }
         [DisplayName("Data zarezerwowania")]
-        public string reserved { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? reserved { get; set; }
         [DisplayName("Data wypożyczenia")]
-        public string leased { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime? leased { get; set; }
     }
 }

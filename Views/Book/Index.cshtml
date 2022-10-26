@@ -41,6 +41,7 @@
             </td>
             <td>
                 @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.id }) |
+                @Html.ActionLink("Wypożycz", "Lease", new { id=item.id }) |
                 @Html.ActionLink("Szczegóły", "Details", new { id=item.id }) |
                 @Html.ActionLink("Edytuj", "Edit", new { id=item.id }) |
                 @Html.ActionLink("Usuń", "Delete", new { id=item.id })

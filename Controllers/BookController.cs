@@ -9,15 +9,12 @@ namespace LibraryManagement.Controllers
     {
         private static IList<BookModel> books = new List<BookModel>()
         {
-            new BookModel(){ 
-                id = 1, 
+            new BookModel(){
+                id = 1,
                 author = "Autor",
                 title="title",
                 date=2022,
                 publisher="publisher",
-                user="",
-                reserved="2022-10-12",
-                leased =""
             },
             new BookModel(){
                 id = 2,
@@ -25,9 +22,6 @@ namespace LibraryManagement.Controllers
                 title="title2",
                 date=2022,
                 publisher="publisher2",
-                user="",
-                reserved="2022-10-12",
-                leased =""
             },
             new BookModel(){
                 id = 3,
@@ -35,9 +29,6 @@ namespace LibraryManagement.Controllers
                 title="title3",
                 date=2022,
                 publisher="publisher3",
-                user="",
-                reserved="2022-10-12",
-                leased =""
             }
         };
         // GET: BookController
@@ -109,9 +100,26 @@ namespace LibraryManagement.Controllers
         public ActionResult Reserve(int id)
         {
             BookModel book = books.FirstOrDefault(x => x.id == id);
-            book.reserved = DateTime.Today.ToString("D");
+            book.reserved = DateTime.Today.Date;
+            book.user = "UserTemporary";
             return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult Lease(int id)
+        {
+            return View(books.FirstOrDefault(x => x.id == id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Lease(int id, BookModel bookModel)
+        {
+            BookModel book = books.FirstOrDefault(x => x.id == id);
+            if (book.reserved is not null && bookModel.leased > DateTime.Today.Date)
+            {
+                book.leased = bookModel.leased;
+            }
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

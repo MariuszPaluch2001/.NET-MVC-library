@@ -40,9 +40,9 @@
                 @Html.DisplayFor(modelItem => item.publisher)
             </td>
             <td>
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.id }) |
+                @Html.ActionLink("Edytuj", "Edit", new { id=item.id }) |
+                @Html.ActionLink("Usuń", "Delete", new { id=item.id })
             </td>
         </tr>
 }

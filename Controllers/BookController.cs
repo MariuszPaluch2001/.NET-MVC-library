@@ -49,7 +49,7 @@ namespace LibraryManagement.Controllers
         // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            return View(books.FirstOrDefault( x=> x.id == id));
         }
 
         // GET: BookController/Create
@@ -72,28 +72,28 @@ namespace LibraryManagement.Controllers
         // GET: BookController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(books.FirstOrDefault(x => x.id == id));
         }
 
         // POST: BookController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, BookModel bookModel)
         {
-            try
-            {
+                BookModel book = books.FirstOrDefault(x => x.id == id);
+                book.author = bookModel.author;
+                book.publisher = bookModel.publisher;
+                book.title = bookModel.title;
+                book.date = bookModel.date;
+                book.reserved = bookModel.reserved;
+                book.leased = bookModel.leased;
                 return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: BookController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(books.FirstOrDefault(x => x.id == id));
         }
 
         // POST: BookController/Delete/5
@@ -101,14 +101,9 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+           BookModel book = books.FirstOrDefault(x => x.id == id);
+           books.Remove(book);
+           return RedirectToAction(nameof(Index));
         }
     }
 }

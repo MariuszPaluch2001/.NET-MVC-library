@@ -1,15 +1,15 @@
 ﻿@model LibraryManagement.Models.BookModel
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Edit";
 }
 
-<h1>Dodaj książkę</h1>
+<h1>Edytuj dane książki</h1>
 
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="author" class="control-label"></label>
@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="date" class="control-label"></label>
-                <input asp-for="date" class="form-control" value="2022" />
+                <input asp-for="date" class="form-control" />
                 <span asp-validation-for="date" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -31,15 +31,31 @@
                 <input asp-for="publisher" class="form-control" />
                 <span asp-validation-for="publisher" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="user" class="control-label"></label>
+                <input asp-for="user" class="form-control" />
+                <span asp-validation-for="user" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="reserved" class="control-label"></label>
+                <input asp-for="reserved" class="form-control" />
+                <span asp-validation-for="reserved" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="leased" class="control-label"></label>
+                <input asp-for="leased" class="form-control" />
+                <span asp-validation-for="leased" class="text-danger"></span>
+            </div>
             <br />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
+
 <div>
-    <a asp-action="Index">Powróć do strony głównej</a>
+    <a asp-action="Index">Wróć do strony głównej</a>
 </div>
 
 @section Scripts {

@@ -7,3 +7,30 @@
     <p>Click <a href="#">here</a> to log in.</p>
     <p>Click <a href="#">here</a> to create new account.</p>
 </div>
+<div>
+    <p>ADMIN:</p>
+    <p>
+        <a asp-controller="book" asp-action="Create">Dodaj książkę</a>
+    </p>
+    <p>
+        <a asp-controller="book" asp-action="EditDeleteList">Edytuj/usuń książkę</a>
+    </p>
+    <p>
+        <a asp-controller="book" asp-action="BooksToLease">Wypożycz książkę</a>
+    </p>
+    <p>
+        <a asp-controller="book" asp-action="BooksToReturn">Zwróć książkę</a>
+    </p>
+    <p>
+        <a asp-controller="book" asp-action="Index">Znajdź książkę</a>
+    </p>
+</div>
+<div>
+    <p>USER:</p>
+    <p>
+        <a asp-controller="book" asp-action="BooksToReserve">Zarezerwuj książkę</a>
+    </p>
+    <p>
+        <a asp-controller="book" asp-action="Index">Znajdź książkę</a>
+    </p>
+</div>

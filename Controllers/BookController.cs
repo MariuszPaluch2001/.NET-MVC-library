@@ -97,12 +97,25 @@ namespace LibraryManagement.Controllers
            return RedirectToAction(nameof(Index));
         }
 
+        public ActionResult EditDeleteList()
+        {
+            return View(books);
+        }
+        public ActionResult BooksToReserve()
+        {
+            return View(books);
+        }
         public ActionResult Reserve(int id)
         {
             BookModel book = books.FirstOrDefault(x => x.id == id);
             book.reserved = DateTime.Today.Date;
             book.user = "UserTemporary";
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(BooksToReserve));
+        }
+
+        public ActionResult BooksToLease()
+        {
+            return View(books);
         }
 
         public ActionResult Lease(int id)
@@ -119,7 +132,21 @@ namespace LibraryManagement.Controllers
             {
                 book.leased = bookModel.leased;
             }
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(BooksToLease));
         }
+
+        public ActionResult BooksToReturn()
+        {
+            return View(books);
+        }
+        public ActionResult ReturnBook(int id)
+        {
+            BookModel book = books.FirstOrDefault(x => x.id == id);
+            book.reserved = null;
+            book.leased = null;
+            book.user = null;
+            return RedirectToAction(nameof(BooksToReturn));
+        }
+
     }
 }

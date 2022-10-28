@@ -25,8 +25,24 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">View books</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                        </li>
+                    </ul>
+                    <!-- User auth list @@ TO DO: Add if else for log in and log out users.-->
+                    <ul class="navbar-nav navbar-text navbar-right">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Logout</a>
+                        </li>
                     </ul>
                 </div>
+
             </div>
         </nav>
     </header>

@@ -5,7 +5,6 @@
 }
 
 <h1>Szczegóły</h1>
-
 <div>
     <hr />
     <dl class="row">
@@ -45,7 +44,23 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.leased)
         </dd>
+  
     </dl>
+</div>
+<div>
+    @if (Model.reserved is null){
+        @Html.ActionLink("Zarezerwuj", "Reserve", new { id= Model.id }) @:|
+    }
+    @if (Model.leased is null && Model.reserved is not null)
+    {
+        @Html.ActionLink("Wypożycz", "Lease", new { id= Model.id }) @:|
+    }
+    @if (Model.leased is not null)
+    {
+        @Html.ActionLink("Zwróć", "ReturnBook", new { id= Model.id }) @:|
+    }
+    @Html.ActionLink("Edytuj", "Edit", new { id= Model.id }) |
+    @Html.ActionLink("Usuń", "Delete", new { id= Model.id })
 </div>
 <div>
     <a asp-action="Index">Powróć do strony głównej</a>

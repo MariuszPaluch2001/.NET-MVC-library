@@ -54,10 +54,9 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(BookModel bookModel)
         {
-            bookModel.id = books.Count + 1;
+                bookModel.id = books.Count + 1;
                 books.Add(bookModel);
-                return RedirectToAction(nameof(Index));
-
+                return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         // GET: BookController/Edit/5
@@ -78,7 +77,7 @@ namespace LibraryManagement.Controllers
                 book.date = bookModel.date;
                 book.reserved = bookModel.reserved;
                 book.leased = bookModel.leased;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         // GET: BookController/Delete/5
@@ -94,7 +93,7 @@ namespace LibraryManagement.Controllers
         {
            BookModel book = books.FirstOrDefault(x => x.id == id);
            books.Remove(book);
-           return RedirectToAction(nameof(Index));
+           return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public ActionResult EditDeleteList()
@@ -110,7 +109,8 @@ namespace LibraryManagement.Controllers
             BookModel book = books.FirstOrDefault(x => x.id == id);
             book.reserved = DateTime.Today.Date;
             book.user = "UserTemporary";
-            return RedirectToAction(nameof(BooksToReserve));
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+
         }
 
         public ActionResult BooksToLease()
@@ -132,7 +132,7 @@ namespace LibraryManagement.Controllers
             {
                 book.leased = bookModel.leased;
             }
-            return RedirectToAction(nameof(BooksToLease));
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public ActionResult BooksToReturn()
@@ -145,7 +145,12 @@ namespace LibraryManagement.Controllers
             book.reserved = null;
             book.leased = null;
             book.user = null;
-            return RedirectToAction(nameof(BooksToReturn));
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        public ActionResult SearchBook(String? searching)
+        {
+            return View(books.Where(x => searching is null || x.title.Contains(searching)).ToList());
         }
 
     }

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<LibraryManagement.Models.BookModel>
+
+@{
+    ViewData["Title"] = "SearchBook";
+}
+
+<h1>Znajdź książkę</h1>
+<br/>
+@using(Html.BeginForm("SearchBook", "book", FormMethod.Get))
+{
+    @Html.TextBox("searching")<input type="submit" value="Search" />
+}
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.author)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.publisher)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.author)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.publisher)
+            </td>
+            <td>
+                @Html.ActionLink("Szczegóły", "Details", new { id=item.id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

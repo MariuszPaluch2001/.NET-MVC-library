@@ -20,25 +20,24 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Strona główna</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">View books</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Book" asp-action="Index">Lista książek</a>
                         </li>
                     </ul>
-                    <!-- User auth list @@ TO DO: Add if else for log in and log out users.-->
                     <ul class="navbar-nav navbar-text navbar-right">
                         @if (@ViewBag.login is null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Login">Zaloguj się</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Zarejestruj się</a>
                             </li>
                         } else{
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Wyloguj się</a>
                             </li>
                         }
                     </ul>

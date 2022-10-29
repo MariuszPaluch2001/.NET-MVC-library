@@ -9,6 +9,7 @@ namespace LibraryManagement.Models
         public string login { get; set; }
         [DisplayName("Hasło")]
         public string password { get; set; }
+        [DisplayName("Administrator")]
         public bool isSuperUser { get; set; }
     }
 }

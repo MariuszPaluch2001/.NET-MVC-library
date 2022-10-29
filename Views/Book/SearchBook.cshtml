@@ -1,14 +1,14 @@
 ﻿@model IEnumerable<LibraryManagement.Models.BookModel>
 
 @{
-    ViewData["Title"] = "SearchBook";
+    ViewData["Title"] = "Znajdź książkę";
 }
 
 <h1>Znajdź książkę</h1>
 <br/>
 @using(Html.BeginForm("SearchBook", "book", FormMethod.Get))
 {
-    @Html.TextBox("searching")<input type="submit" value="Search" />
+    @Html.TextBox("searching")<input type="submit" value="Szukaj" />
 }
 <br />
 <table class="table">

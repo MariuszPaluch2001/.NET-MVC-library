@@ -3,43 +3,54 @@
 }
 @if (@ViewBag.login is null){
     <div class="text-center">
-        <h1 class="display-4">Sorry you aren't logged in.</h1>
-        <p>Click <a href="#">here</a> to log in.</p>
-        <p>Click <a href="#">here</a> to create new account.</p>
+        <h1 class="display-4">Niestety, nie jesteś zalogowany.</h1>
+        <p>Kliknij <a asp-controller="User" asp-action="Login">tutaj</a> aby się zalogować.</p>
+        <p>Kliknij <a asp-controller="User" asp-action="Register">tutaj</a> aby utworzyć nowe konto.</p>
     </div>
 }
 else{
     @if (@ViewBag.isSuperUser == "true")
     {
-        <div>
-            <p>
-                <a asp-controller="book" asp-action="Create">Dodaj książkę</a>
-            </p>
-            <p>
-                <a asp-controller="book" asp-action="EditDeleteList">Edytuj/usuń książkę</a>
-            </p>
-            <p>
-                <a asp-controller="book" asp-action="BooksToLease">Wypożycz książkę</a>
-            </p>
-            <p>
-                <a asp-controller="book" asp-action="BooksToReturn">Zwróć książkę</a>
-            </p>
-            <p>
-                <a asp-controller="book" asp-action="SearchBook">Znajdź książkę</a>
-            </p>
-            <p>
-                <a asp-controller="user" asp-action="Index">Użytkownicy</a>
-            </p>
+        <div class="container bcontent">
+            <h2>Menu administratora</h2>
+            <hr />
+            <div class="list-group">
+                <a asp-controller="book" asp-action="Create" class="list-group-item list-group-item-action">
+                    Dodaj książkę
+                </a>
+                <a asp-controller="book" asp-action="EditDeleteList" class="list-group-item list-group-item-action">
+                    Edytuj/usuń książkę
+                </a>
+                <a asp-controller="book" asp-action="BooksToLease" class="list-group-item list-group-item-action">
+                    Wypożycz książkę
+                </a>
+                <a asp-controller="book" asp-action="BooksToReturn" class="list-group-item list-group-item-action">
+                    Zwróć książkę
+                </a>
+                <a asp-controller="book" asp-action="BooksToReserve" class="list-group-item list-group-item-action">
+                    Zarezerwuj książkę
+                </a>
+                <a asp-controller="book" asp-action="SearchBook" class="list-group-item list-group-item-action">
+                    Znajdź książkę
+                </a>
+                <a asp-controller="user" asp-action="Index" class="list-group-item list-group-item-action">
+                    Użytkownicy
+                </a>
+            </div>
         </div>
     }
     else{
-        <div>
-            <p>
-                <a asp-controller="book" asp-action="BooksToReserve">Zarezerwuj książkę</a>
-            </p>
-            <p>
-                <a asp-controller="book" asp-action="SearchBook">Znajdź książkę</a>
-            </p>
+        <div class="container bcontent">
+            <h2>Menu użytkownika</h2>
+            <hr />
+            <div class="list-group">
+                <a asp-controller="book" asp-action="BooksToReserve" class="list-group-item list-group-item-action">
+                    Zarezerwuj książkę
+                </a>
+                <a asp-controller="book" asp-action="SearchBook" class="list-group-item list-group-item-action">
+                    Znajdź książkę
+                </a>
+            </div>
         </div>
     }
 

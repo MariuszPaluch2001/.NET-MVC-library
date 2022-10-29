@@ -1,11 +1,11 @@
 ﻿@model LibraryManagement.Models.BookModel
 
 @{
-    ViewData["Title"] = "Lease";
+    ViewData["Title"] = "Książki do wypożyczenia";
 }
 @if (ViewBag.isSuperUser == "true")
 {
-    <h1>Lease</h1>
+    <h1>Wypożycz</h1>
 
     <hr />
     <div class="row">
@@ -19,7 +19,7 @@
                 </div>
                 <br/>
                 <div class="form-group">
-                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <input type="submit" value="Zapisz" class="btn btn-primary" />
                 </div>
             </form>
         </div>

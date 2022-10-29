@@ -2,6 +2,7 @@
 using LibraryManagement.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
 using System.Web;
 namespace LibraryManagement.Controllers
 {
@@ -39,7 +40,11 @@ namespace LibraryManagement.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
-
+        public ActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
         public ActionResult Login()
         {
             return View();
@@ -53,13 +58,12 @@ namespace LibraryManagement.Controllers
             {
                 HttpContext.Session.SetString("login", login);
                 HttpContext.Session.SetString("isSuperUser", user.isSuperUser ? "true" : "false");
-                return RedirectToAction(nameof(Welcome));
             }
             else
             {
                 ViewBag.msg = "Invalid";
-                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         public ActionResult Welcome()
         {

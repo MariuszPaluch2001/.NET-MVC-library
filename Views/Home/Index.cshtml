@@ -9,34 +9,38 @@
     </div>
 }
 else{
-    <div>
-        <p>ADMIN:</p>
-        <p>
-            <a asp-controller="book" asp-action="Create">Dodaj książkę</a>
-        </p>
-        <p>
-            <a asp-controller="book" asp-action="EditDeleteList">Edytuj/usuń książkę</a>
-        </p>
-        <p>
-            <a asp-controller="book" asp-action="BooksToLease">Wypożycz książkę</a>
-        </p>
-        <p>
-            <a asp-controller="book" asp-action="BooksToReturn">Zwróć książkę</a>
-        </p>
-        <p>
-            <a asp-controller="book" asp-action="SearchBook">Znajdź książkę</a>
-        </p>
-        <p>
-            <a asp-controller="user" asp-action="Index">Użytkownicy</a>
-        </p>
-    </div>
-    <div>
-        <p>USER:</p>
-        <p>
-            <a asp-controller="book" asp-action="BooksToReserve">Zarezerwuj książkę</a>
-        </p>
-        <p>
-            <a asp-controller="book" asp-action="SearchBook">Znajdź książkę</a>
-        </p>
-    </div>
+    @if (@ViewBag.isSuperUser == "true")
+    {
+        <div>
+            <p>
+                <a asp-controller="book" asp-action="Create">Dodaj książkę</a>
+            </p>
+            <p>
+                <a asp-controller="book" asp-action="EditDeleteList">Edytuj/usuń książkę</a>
+            </p>
+            <p>
+                <a asp-controller="book" asp-action="BooksToLease">Wypożycz książkę</a>
+            </p>
+            <p>
+                <a asp-controller="book" asp-action="BooksToReturn">Zwróć książkę</a>
+            </p>
+            <p>
+                <a asp-controller="book" asp-action="SearchBook">Znajdź książkę</a>
+            </p>
+            <p>
+                <a asp-controller="user" asp-action="Index">Użytkownicy</a>
+            </p>
+        </div>
+    }
+    else{
+        <div>
+            <p>
+                <a asp-controller="book" asp-action="BooksToReserve">Zarezerwuj książkę</a>
+            </p>
+            <p>
+                <a asp-controller="book" asp-action="SearchBook">Znajdź książkę</a>
+            </p>
+        </div>
+    }
+
 }

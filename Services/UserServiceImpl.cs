@@ -47,10 +47,6 @@ namespace LibraryManagement.Services
             }
             return null;
         }
-        public UserModel Logout()
-        {
-            throw new NotImplementedException();
-        }
 
     }
 }

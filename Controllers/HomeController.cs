@@ -1,5 +1,6 @@
 ﻿using LibraryManagement.Models;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
 using System.Diagnostics;
 
 namespace LibraryManagement.Controllers
@@ -15,6 +16,8 @@ namespace LibraryManagement.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.login = HttpContext.Session.GetString("login");
+            ViewBag.isSuperUser = HttpContext.Session.GetString("isSuperUser");
             return View();
         }
 

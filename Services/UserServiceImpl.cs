@@ -5,11 +5,7 @@ namespace LibraryManagement.Services
     public class UserServiceImpl : UserService
     {
 
-        private List<UserModel> users;
-        
-        public UserServiceImpl()
-        {
-            users = new List<UserModel>
+        private static IList<UserModel> users = new List<UserModel>()
             {
                 new UserModel
                 {
@@ -26,15 +22,35 @@ namespace LibraryManagement.Services
                     isSuperUser = false
                 }
             };
+        
+        public IList<UserModel> getUsers()
+        {
+            return users;
         }
+
         public UserModel Login(string login, string password)
         {
             return users.SingleOrDefault(x => x.login == login && x.password == password);
         }
 
+        public UserModel Register(string login, string password, string password_repeat)
+        {
+            if (users.SingleOrDefault(x => x.login == login ) is null && password == password_repeat)
+            {
+                UserModel user = new UserModel();
+                user.id = users.Count() + 1;
+                user.login = login;
+                user.password = password;
+                user.isSuperUser = false;
+                users.Add(user);
+                return user;
+            }
+            return null;
+        }
         public UserModel Logout()
         {
             throw new NotImplementedException();
         }
+
     }
 }

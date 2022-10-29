@@ -14,27 +14,24 @@ namespace LibraryManagement.Controllers
             userService = _userService;
         }
 
-        public ActionResult register()
+        public ActionResult Index()
+        {
+            return View(userService.getUsers());
+        }
+
+        public ActionResult Register()
         {
             return View();
         }
         [HttpPost]
-        public ActionResult register(string username, string password)
+        public ActionResult Register(string login, string password, string password_repeat)
         {
-            return View();
-        }
-        public ActionResult login()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult login(string login, string password)
-        {
-            UserModel user = userService.Login(login, password);
+            UserModel user = userService.Register(login, password, password_repeat);
             if (user != null)
             {
                 HttpContext.Session.SetString("login", login);
-                return RedirectToAction(nameof(welcome));
+                HttpContext.Session.SetString("isSuperUser", user.isSuperUser ? "true" : "false");
+                return RedirectToAction(nameof(Welcome));
             }
             else
             {
@@ -42,7 +39,29 @@ namespace LibraryManagement.Controllers
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
         }
-        public ActionResult welcome()
+
+        public ActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Login(string login, string password)
+        {
+            UserModel user = userService.Login(login, password);
+            if (user != null)
+            {
+                HttpContext.Session.SetString("login", login);
+                HttpContext.Session.SetString("isSuperUser", user.isSuperUser ? "true" : "false");
+                return RedirectToAction(nameof(Welcome));
+            }
+            else
+            {
+                ViewBag.msg = "Invalid";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+        }
+        public ActionResult Welcome()
         {
             return View();
         }

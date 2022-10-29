@@ -48,19 +48,24 @@
     </dl>
 </div>
 <div>
-    @if (Model.reserved is null){
+    @if (ViewBag.login is not null && Model.reserved is null)
+    {
         @Html.ActionLink("Zarezerwuj", "Reserve", new { id= Model.id }) @:|
     }
-    @if (Model.leased is null && Model.reserved is not null)
+    @if (ViewBag.isSuperUser =="true" && Model.leased is null && Model.reserved is not null)
     {
         @Html.ActionLink("Wypożycz", "Lease", new { id= Model.id }) @:|
     }
-    @if (Model.leased is not null)
+    @if (ViewBag.isSuperUser =="true" && Model.leased is not null)
     {
         @Html.ActionLink("Zwróć", "ReturnBook", new { id= Model.id }) @:|
     }
-    @Html.ActionLink("Edytuj", "Edit", new { id= Model.id }) |
-    @Html.ActionLink("Usuń", "Delete", new { id= Model.id })
+    @if (ViewBag.isSuperUser == "true")
+    {
+        @Html.ActionLink("Edytuj", "Edit", new { id= Model.id }) @:|
+        @Html.ActionLink("Usuń", "Delete", new { id = Model.id })
+    }
+
 </div>
 <div>
     <a asp-action="Index">Powróć do strony głównej</a>

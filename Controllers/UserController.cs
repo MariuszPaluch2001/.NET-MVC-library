@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 using System.Web;
+using static System.Reflection.Metadata.BlobBuilder;
+
 namespace LibraryManagement.Controllers
 {
     public class UserController : Controller
@@ -63,6 +65,20 @@ namespace LibraryManagement.Controllers
             {
                 ViewBag.msg = "Invalid";
             }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+        public ActionResult DeleteAccout()
+        {
+            string login = HttpContext.Session.GetString("login");
+            return View(login);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteAccout(String login)
+        {
+            HttpContext.Session.Clear();
+            UserModel model = userService.getUsers().FirstOrDefault(x => x.login == login);
+            userService.getUsers().Remove(model);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         public ActionResult Welcome()

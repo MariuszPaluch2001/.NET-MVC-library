@@ -47,26 +47,26 @@
   
     </dl>
 </div>
-<div>
+<div class="col-lg-5">
     @if (ViewBag.login is not null && Model.reserved is null)
     {
-        @Html.ActionLink("Zarezerwuj", "Reserve", new { id= Model.id }) @:|
+        <span>@Html.ActionLink("Zarezerwuj", "Reserve", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
     }
     @if (ViewBag.isSuperUser =="true" && Model.leased is null && Model.reserved is not null)
     {
-        @Html.ActionLink("Wypożycz", "Lease", new { id= Model.id }) @:|
+        <span>@Html.ActionLink("Wypożycz", "Lease", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
     }
     @if (ViewBag.isSuperUser =="true" && Model.leased is not null)
     {
-        @Html.ActionLink("Zwróć", "ReturnBook", new { id= Model.id }) @:|
+        <span>@Html.ActionLink("Zwróć", "ReturnBook", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
     }
     @if (ViewBag.isSuperUser == "true")
     {
-        @Html.ActionLink("Edytuj", "Edit", new { id= Model.id }) @:|
-        @Html.ActionLink("Usuń", "Delete", new { id = Model.id })
+        <span>@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
+        <span>@Html.ActionLink("Usuń", "Delete", new { id = Model.id }, new {@class = "btn btn-danger"})</span>
     }
 
 </div>
-<div>
-    <a asp-action="Index">Powróć do strony głównej</a>
+<div class="margin-top">
+    <a asp-action="Index" class="btn btn-primary">Powrót</a>
 </div>

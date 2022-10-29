@@ -1,1 +1,9 @@
-﻿<p> WITAM </p>
+﻿@if (@ViewBag.login is not null){
+	<div class="text-center">
+		<h3> WITAMY NA STRONIE </h3>
+		<p> @ViewBag.login ! <p>
+	</div>
+}
+else{
+	<p>Nie masz dostępu do strony.</p>
+}

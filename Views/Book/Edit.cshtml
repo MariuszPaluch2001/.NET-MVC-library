@@ -4,56 +4,59 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edytuj dane książki</h1>
+@if (ViewBag.isSuperUser == "true"){
+    <h1>Edytuj dane książki</h1>
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="author" class="control-label"></label>
-                <input asp-for="author" class="form-control" />
-                <span asp-validation-for="author" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="title" class="control-label"></label>
-                <input asp-for="title" class="form-control" />
-                <span asp-validation-for="title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="date" class="control-label"></label>
-                <input asp-for="date" class="form-control" />
-                <span asp-validation-for="date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="publisher" class="control-label"></label>
-                <input asp-for="publisher" class="form-control" />
-                <span asp-validation-for="publisher" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="user" class="control-label"></label>
-                <input asp-for="user" class="form-control" />
-                <span asp-validation-for="user" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="reserved" class="control-label"></label>
-                <input asp-for="reserved" class="form-control" />
-                <span asp-validation-for="reserved" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="leased" class="control-label"></label>
-                <input asp-for="leased" class="form-control" />
-                <span asp-validation-for="leased" class="text-danger"></span>
-            </div>
-            <br />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="author" class="control-label"></label>
+                    <input asp-for="author" class="form-control" />
+                    <span asp-validation-for="author" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="title" class="control-label"></label>
+                    <input asp-for="title" class="form-control" />
+                    <span asp-validation-for="title" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="date" class="control-label"></label>
+                    <input asp-for="date" class="form-control" />
+                    <span asp-validation-for="date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="publisher" class="control-label"></label>
+                    <input asp-for="publisher" class="form-control" />
+                    <span asp-validation-for="publisher" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="user" class="control-label"></label>
+                    <input asp-for="user" class="form-control" />
+                    <span asp-validation-for="user" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="reserved" class="control-label"></label>
+                    <input asp-for="reserved" class="form-control" />
+                    <span asp-validation-for="reserved" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="leased" class="control-label"></label>
+                    <input asp-for="leased" class="form-control" />
+                    <span asp-validation-for="leased" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
+} else{
+    <p>Nie masz dostępu do tej strony.</p>
+}
 <div>
     <a asp-action="Index">Wróć do strony głównej</a>
 </div>

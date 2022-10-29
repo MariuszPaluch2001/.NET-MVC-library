@@ -1,4 +1,5 @@
 using LibraryManagement.Services;
+using LibraryManagement.ActionFilter;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +8,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
 
 builder.Services.AddScoped<UserService, UserServiceImpl>();
-
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add(typeof(UserActionFilter));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

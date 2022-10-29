@@ -16,8 +16,6 @@ namespace LibraryManagement.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.login = HttpContext.Session.GetString("login");
-            ViewBag.isSuperUser = HttpContext.Session.GetString("isSuperUser");
             return View();
         }
 

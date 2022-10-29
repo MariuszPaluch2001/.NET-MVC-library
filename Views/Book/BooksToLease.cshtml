@@ -3,61 +3,67 @@
 @{
     ViewData["Title"] = "BooksToLease";
 }
+@if (ViewBag.isSuperUser == "true"){
+    <h1>Wypożycz książkę</h1>
 
-<h1>Wypożycz książkę</h1>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.author)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.publisher)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.user)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.reserved)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-            @if (item.reserved is not null && item.leased is null)
-            {
-             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.author)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.publisher)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.user)
-                </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.reserved)
-                </td>
-                <td>
-                    @Html.ActionLink("Wypożycz", "Lease", new { id=item.id })
-                </td>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.author)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.publisher)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.user)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.reserved)
+                </th>
+                <th></th>
             </tr>
-        }
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                @if (item.reserved is not null && item.leased is null)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.publisher)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.user)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.reserved)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Wypożycz", "Lease", new { id=item.id })
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
 }
-    </tbody>
-</table>
+else{
+    <p>Nie masz dostępu do tej strony.</p>
+}

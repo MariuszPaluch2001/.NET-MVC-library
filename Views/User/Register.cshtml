@@ -1,15 +1,29 @@
-﻿@if (ViewBag.login is null){
-	<h3>Register</h3>
+﻿@if (ViewBag.login is null)
+{
 
-	<form method="post" asp-controller="user" asp-action="Register">
-		Login <input type="text" name="login" />
-		<br />
-		Password <input type="password" name="password" />
-		<br />
-		Password <input type="password" name="password_repeat" />
-		<br />
-		<input type="submit" value="Register" />
-	</form>
-} else{
-	<p>Nie masz dostępu do tej strony.</p>
+    <div class="container">
+        <form method="post" asp-controller="user" asp-action="Register">
+
+            <div class="form-outline mb-4">
+                <input type="text" id="login" name="login" class="form-control" />
+                <label class="form-label" for="login">Login</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="password" id="password" name="password" class="form-control" />
+                <label class="form-label" for="password">Hasło</label>
+            </div>
+
+            <div class="form-outline mb-4">
+                <input type="password" id="password_repeat" name="password_repeat" class="form-control" />
+                <label class="form-label" for="password_repeat">Powtórz hasło</label>
+            </div>
+
+            <button type="submit" value="Register" class="btn btn-primary btn-block mb-4">Zarejestruj się</button>
+        </form>
+    </div>
+}
+else
+{
+    <p>Nie masz dostępu do tej strony.</p>
 }

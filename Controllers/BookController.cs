@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Policy;
 using System;
+using LibraryManagement.Services;
 namespace LibraryManagement.Controllers
 {
     public class BookController : Controller
@@ -106,9 +107,10 @@ namespace LibraryManagement.Controllers
         }
         public ActionResult Reserve(int id)
         {
+            ;
             BookModel book = books.FirstOrDefault(x => x.id == id);
             book.reserved = DateTime.Today.Date;
-            book.user = "UserTemporary";
+            book.user = UserService.getUsers().FirstOrDefault(x => x.login == HttpContext.Session.GetString("login"));
             return RedirectToAction(nameof(HomeController.Index), "Home");
 
         }
@@ -148,10 +150,15 @@ namespace LibraryManagement.Controllers
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
-        public ActionResult SearchBook(String? searching)
+        public ActionResult SearchBook(string? searching)
         {
             return View(books.Where(x => searching is null || x.title.Contains(searching)).ToList());
         }
 
+        public ActionResult UserReservedBooks()
+        {
+             string login = HttpContext.Session.GetString("login");
+             return View(books.Where(x => x.user is not null && x.user.login == login).ToList());
+        }
     }
 }

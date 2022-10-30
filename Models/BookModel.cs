@@ -15,7 +15,7 @@ namespace LibraryManagement.Models
         [DisplayName("Wydawca")]
         public string publisher { get; set; }
         [DisplayName("Użytkownik")]
-        public string user { get; set; }
+        public virtual UserModel user { get; set; }
         [DisplayName("Data zarezerwowania")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

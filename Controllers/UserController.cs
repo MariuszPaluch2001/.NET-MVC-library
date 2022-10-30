@@ -19,7 +19,7 @@ namespace LibraryManagement.Controllers
 
         public ActionResult Index()
         {
-            return View(userService.getUsers());
+            return View(UserService.getUsers());
         }
 
         public ActionResult Register()
@@ -69,7 +69,7 @@ namespace LibraryManagement.Controllers
         }
         public ActionResult DeleteAccount(string login)
         {
-            return View(userService.getUsers().FirstOrDefault(x => x.login == login));
+            return View(UserService.getUsers().FirstOrDefault(x => x.login == login));
         }
         [HttpPost]
         public ActionResult DeleteAccount(string login, UserModel user)

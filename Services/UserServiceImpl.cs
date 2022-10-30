@@ -24,10 +24,6 @@ namespace LibraryManagement.Services
                 }
             };
         
-        public IList<UserModel> getUsers()
-        {
-            return users;
-        }
 
         public UserModel Login(string login, string password)
         {

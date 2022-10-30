@@ -1,0 +1,24 @@
+﻿@model LibraryManagement.Models.UserModel
+
+@{
+    ViewData["Title"] = "Usuwanie konta";
+}
+
+@if (ViewBag.login is not null && ViewBag.isSuperUser == "false"){
+    <div class="text-center">
+        <h3>Czy napewno chcesz usunąć konto?</h3>
+        <div>
+            <br />
+            <form asp-action="DeleteAccount">
+                <input type="submit" value="Tak" class="btn btn-danger" />
+            </form>
+        </div>
+        <div class="margin-top">
+            <a asp-controller="Home" asp-action="Index" class="btn btn-success">Powrót do strony głównej</a>
+        </div>
+    </div>
+
+}
+else{
+    <p>Nie masz dostępu do tej strony.</p>
+}

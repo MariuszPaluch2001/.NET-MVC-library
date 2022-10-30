@@ -36,6 +36,12 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Register">Zarejestruj się</a>
                             </li>
                         } else{
+                            @if (@ViewBag.isSuperUser == "false"){
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="DeleteAccount">Usuń konto</a>
+                                </li>
+                            }
+
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="User" asp-action="Logout">Wyloguj się</a>
                             </li>

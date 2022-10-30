@@ -67,19 +67,21 @@ namespace LibraryManagement.Controllers
             }
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        public ActionResult DeleteAccout()
+        public ActionResult DeleteAccount(string login)
         {
-            string login = HttpContext.Session.GetString("login");
-            return View(login);
+            return View(userService.getUsers().FirstOrDefault(x => x.login == login));
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteAccout(String login)
+        public ActionResult DeleteAccount(string login, UserModel user)
         {
-            HttpContext.Session.Clear();
-            UserModel model = userService.getUsers().FirstOrDefault(x => x.login == login);
-            userService.getUsers().Remove(model);
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            
+            if (userService.DeleteAccount(HttpContext.Session.GetString("login")))
+            {
+                HttpContext.Session.Clear();
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+                return View();
         }
         public ActionResult Welcome()
         {

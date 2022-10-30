@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Models;
+using NuGet.Protocol.Plugins;
 
 namespace LibraryManagement.Services
 {
@@ -46,6 +47,11 @@ namespace LibraryManagement.Services
                 return user;
             }
             return null;
+        }
+
+        public bool DeleteAccount(string login)
+        {
+            return users.Remove(users.FirstOrDefault(x => x.login == login));
         }
 
     }

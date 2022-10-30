@@ -38,19 +38,40 @@
                 @Html.DisplayNameFor(model => model.user)
             </dt>
             <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.user)
+                @if (Model.user is not null)
+                {
+                    @Html.DisplayFor(model => model.user)
+                }
+                else
+                {
+                    <text>-----</text>
+                }
             </dd>
-            <dt class = "col-sm-2">
+            <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.reserved)
             </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.reserved)
+            <dd class="col-sm-10">
+                @if (Model.reserved is not null)
+                {
+                    @Html.DisplayFor(model => model.reserved)
+                }
+                else
+                {
+                    <text>-----</text>
+                }
             </dd>
-            <dt class = "col-sm-2">
+            <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.leased)
             </dt>
-            <dd class = "col-sm-10">
-                @Html.DisplayFor(model => model.leased)
+            <dd class="col-sm-10">
+                @if (Model.leased is not null)
+                {
+                    @Html.DisplayFor(model => model.leased)
+                }
+                else
+                {
+                    <text>-----</text>
+                }
             </dd>
         </dl>
     
@@ -62,6 +83,6 @@
 else{
     <p>Nie masz dostępu do tej strony.</p>
 }
-<div>
-    <a asp-action="Index">Wróć na stronę główną</a>
+<div class="margin-top">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Powrót do strony głównej</a>
 </div>

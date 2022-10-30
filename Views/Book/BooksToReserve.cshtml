@@ -44,7 +44,7 @@
                             @Html.DisplayFor(modelItem => item.publisher)
                         </td>
                         <td>
-                            @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.id })
+                            @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.id }, new {@class = "btn btn-primary"})
                         </td>
                     </tr>
                 }
@@ -55,3 +55,6 @@
 } else{
     <p>Nie masz dostępu do tej strony.</p>
 }
+<div class="margin-top">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Powrót do strony głównej</a>
+</div>

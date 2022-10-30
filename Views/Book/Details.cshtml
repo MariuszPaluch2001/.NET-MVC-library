@@ -36,13 +36,26 @@
             @Html.DisplayNameFor(model => model.reserved)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.reserved)
+            @if (Model.reserved is not null)
+            {
+                @Html.DisplayFor(model => model.reserved)
+            }
+            else{
+                <text>-----</text>
+            }
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.leased)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.leased)
+            @if (Model.leased is not null)
+            {
+                @Html.DisplayFor(model => model.leased)
+            }
+            else
+            {
+                <text>-----</text>
+            }
         </dd>
   
     </dl>
@@ -68,5 +81,5 @@
 
 </div>
 <div class="margin-top">
-    <a asp-action="Index" class="btn btn-primary">Powrót</a>
+    <a asp-controller="Home"  asp-action="Index" class="btn btn-primary">Powrót do strony głównej</a>
 </div>

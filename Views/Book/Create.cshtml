@@ -41,10 +41,12 @@
     </div>
 } 
 else{
-    <div>
-        <a asp-action="Index">Powróć do strony głównej</a>
-    </div>
+    <p>Nie masz dostępu do strony głównej.</p>
 }
+
+<div class="margin-top">
+    <a asp-controller="Home"  asp-action="Index" class="btn btn-primary">Powrót do strony głównej</a>
+</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -61,8 +61,12 @@
                         @Html.DisplayFor(modelItem => item.leased)
                     </td>
                     <td>
-                        @Html.ActionLink("Edytuj", "Edit", new { id=item.id }) |
-                        @Html.ActionLink("Usuń", "Delete", new { id=item.id })
+                        <span>
+                            @Html.ActionLink("Edytuj", "Edit", new { id=item.id }, new {@class="btn btn-primary"})
+                        </span>
+                        <span>
+                            @Html.ActionLink("Usuń", "Delete", new { id=item.id }, new {@class="btn btn-danger"})
+                        </span>
                     </td>
                 </tr>
             }
@@ -71,3 +75,6 @@
 }else{
     <p>Nie masz dostepu do tej strony.</p>
 }
+<div class="margin-top">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Powrót do strony głównej</a>
+</div>

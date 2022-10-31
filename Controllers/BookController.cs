@@ -160,5 +160,12 @@ namespace LibraryManagement.Controllers
              string login = HttpContext.Session.GetString("login");
              return View(books.Where(x => x.user is not null && x.user.login == login).ToList());
         }
+        public ActionResult UndoReserve(int id)
+        {
+            BookModel book = books.FirstOrDefault(x => x.id == id);
+            book.reserved = null;
+            book.user = null;
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
     }
 }

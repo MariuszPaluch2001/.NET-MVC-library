@@ -45,9 +45,7 @@
                 @Html.DisplayFor(modelItem => item.reserved)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Wycofaj rezerwacje", "UndoReserve", new { id=item.id }, new {@class="btn btn-primary"})
             </td>
         </tr>
 }

@@ -7,15 +7,15 @@ namespace LibraryManagement.Models
     {
         public int id { get; set; }
         [DisplayName("Autor")]
-        public string author { get; set; }
+        public string? author { get; set; }
         [DisplayName("Tytuł")]
-        public string title { get; set; }
+        public string? title { get; set; }
         [DisplayName("Data")]
         public int date { get; set; }
         [DisplayName("Wydawca")]
-        public string publisher { get; set; }
+        public string? publisher { get; set; }
         [DisplayName("Użytkownik")]
-        public virtual UserModel user { get; set; }
+        public virtual UserModel? user { get; set; }
         [DisplayName("Data zarezerwowania")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

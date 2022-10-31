@@ -4,11 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Policy;
 using System;
 using LibraryManagement.Services;
+using LibraryManagement.Repositories;
+
 namespace LibraryManagement.Controllers
 {
     public class BookController : Controller
     {
-        private static IList<BookModel> books = new List<BookModel>()
+        private static readonly IList<BookModel> books = new List<BookModel>()
         {
             new BookModel(){
                 id = 1,
@@ -32,6 +34,14 @@ namespace LibraryManagement.Controllers
                 publisher="publisher3",
             }
         };
+
+        private IUserRepository userRepository;
+        private IBookRepository bookRepository;
+        public BookController(IBookRepository _bookRepository, IUserRepository _userRepository)
+        {
+            bookRepository = _bookRepository;
+            userRepository = _userRepository;
+        }
         // GET: BookController
         public ActionResult Index()
         {
@@ -71,7 +81,7 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, BookModel bookModel)
         {
-                BookModel book = books.FirstOrDefault(x => x.id == id);
+                BookModel? book = books.FirstOrDefault(x => x.id == id);
                 book.author = bookModel.author;
                 book.publisher = bookModel.publisher;
                 book.title = bookModel.title;
@@ -90,10 +100,11 @@ namespace LibraryManagement.Controllers
         // POST: BookController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id,BookModel bookModel)
+        public ActionResult Delete(int id, BookModel bookModel)
         {
-           BookModel book = books.FirstOrDefault(x => x.id == id);
-           books.Remove(book);
+           BookModel? book = books.FirstOrDefault(x => x.id == id);
+           if (book is not null)
+                books.Remove(book);
            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -107,10 +118,9 @@ namespace LibraryManagement.Controllers
         }
         public ActionResult Reserve(int id)
         {
-            ;
-            BookModel book = books.FirstOrDefault(x => x.id == id);
+            BookModel? book = books.FirstOrDefault(x => x.id == id);
             book.reserved = DateTime.Today.Date;
-            book.user = UserService.getUsers().FirstOrDefault(x => x.login == HttpContext.Session.GetString("login"));
+            book.user = userRepository.GetUser(HttpContext.Session.GetString("login"));
             return RedirectToAction(nameof(HomeController.Index), "Home");
 
         }
@@ -129,7 +139,7 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Lease(int id, BookModel bookModel)
         {
-            BookModel book = books.FirstOrDefault(x => x.id == id);
+            BookModel? book = books.FirstOrDefault(x => x.id == id);
             if (book.reserved is not null && bookModel.leased > DateTime.Today.Date)
             {
                 book.leased = bookModel.leased;
@@ -157,12 +167,12 @@ namespace LibraryManagement.Controllers
 
         public ActionResult UserReservedBooks()
         {
-             string login = HttpContext.Session.GetString("login");
+             string? login = HttpContext.Session.GetString("login");
              return View(books.Where(x => x.user is not null && x.user.login == login).ToList());
         }
         public ActionResult UndoReserve(int id)
         {
-            BookModel book = books.FirstOrDefault(x => x.id == id);
+            BookModel? book = books.FirstOrDefault(x => x.id == id);
             book.reserved = null;
             book.user = null;
             return RedirectToAction(nameof(HomeController.Index), "Home");

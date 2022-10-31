@@ -1,9 +1,18 @@
 using LibraryManagement.Services;
 using LibraryManagement.ActionFilter;
+using LibraryManagement.Models;
+using Microsoft.EntityFrameworkCore;
+using LibraryManagement.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+var connectionString = builder.Configuration.GetConnectionString("LibraryManagerDatabase");
+builder.Services.AddDbContext<UserManagerContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddTransient<IUserRepository, UserRepository>();
+builder.Services.AddTransient<IBookRepository, BookRepository>();
 
 builder.Services.AddSession();
 

@@ -4,11 +4,19 @@ namespace LibraryManagement.Repositories
 {
     public interface IBookRepository
     {
-        BookModel GetBook(int book);
-        BookModel GetBook(string title);
-        IQueryable<BookModel> getBooks();
-        void Add(BookModel user);
-        void Update(int bookId, BookModel book);
+        Book GetBook(int bookId);
+        Book GetBook(string title);
+        void Add(Book user);
+        void Update(int bookId, Book book);
         void Delete(int bookId);
+
+        void UndoReserve(int bookId);
+        void ReturnBook(int bookId);
+        void LeaseBook(int bookId, Book book);
+        void ReserveBook(int bookId, User user);
+
+        IList<Book> GetReservedBooks(string login);
+        IList<Book> Searching(string? searching);
+        IList<Book> getBooks();
     }
 }

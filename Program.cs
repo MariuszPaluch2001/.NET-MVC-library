@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var connectionString = builder.Configuration.GetConnectionString("LibraryManagerDatabase");
-builder.Services.AddDbContext<UserManagerContext>(x => x.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ManagerContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IBookRepository, BookRepository>();
 

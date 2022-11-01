@@ -13,14 +13,14 @@ namespace LibraryManagement.Services
         }
 
         
-        public UserModel Login(string login, string password)
+        public User Login(string login, string password)
         {
             return userRepository.GetUser(login, password);
         }
 
-        public UserModel Register(string login, string password, string password_repeat)
+        public User Register(string login, string password, string password_repeat)
         {
-            UserModel user = new UserModel();
+            User user = new User();
             if (userRepository.GetUser(login) is null && password == password_repeat)
             {
                 user.login = login;

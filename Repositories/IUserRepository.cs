@@ -4,12 +4,12 @@ namespace LibraryManagement.Repositories
 {
     public interface IUserRepository
     {
-        UserModel GetUser(string login);
-        UserModel GetUser(string login, string password);
-        UserModel GetUser(int id);
-        IList<UserModel> getUsers();
-        void Add(UserModel user);
-        void Update(int userId, UserModel user);
+        User GetUser(string login);
+        User GetUser(string login, string password);
+        User GetUser(int id);
+        IList<User> getUsers();
+        void Add(User user);
+        void Update(int userId, User user);
         void Delete(int userId);
     }
 }

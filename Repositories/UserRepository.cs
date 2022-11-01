@@ -4,13 +4,13 @@ namespace LibraryManagement.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserManagerContext _context;
-        public UserRepository(UserManagerContext context)
+        private readonly ManagerContext _context;
+        public UserRepository(ManagerContext context)
         {
             _context = context;
         }
 
-        public void Add(UserModel user)
+        public void Add(User user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
@@ -18,7 +18,7 @@ namespace LibraryManagement.Repositories
 
         public void Delete(int userId)
         {
-            var result = _context.Users.SingleOrDefault(x => x.id == userId);
+            var result = _context.Users.SingleOrDefault(x => x.UserID == userId);
             if (result is not null)
             {
                 _context.Users.Remove(result);
@@ -26,19 +26,19 @@ namespace LibraryManagement.Repositories
             }
         }
 
-        public UserModel GetUser(string login)
+        public User GetUser(string login)
             => _context.Users.SingleOrDefault(x => x.login == login);
-        public UserModel GetUser(string login, string password)
+        public User GetUser(string login, string password)
             => _context.Users.SingleOrDefault(x => x.login == login && x.password == password);
-        public UserModel GetUser(int id)
-            => _context.Users.SingleOrDefault(x => x.id == id);
+        public User GetUser(int id)
+            => _context.Users.SingleOrDefault(x => x.UserID == id);
 
-        public IList<UserModel> getUsers()
+        public IList<User> getUsers()
             => _context.Users.ToList();
 
-        public void Update(int userId, UserModel user)
+        public void Update(int userId, User user)
         {
-            var result = _context.Users.SingleOrDefault(x => x.id == userId);
+            var result = _context.Users.SingleOrDefault(x => x.UserID == userId);
             if (result is not null)
             {
                 result.login = user.login;

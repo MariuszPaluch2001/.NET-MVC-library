@@ -1,10 +1,25 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection.Metadata;
 
 namespace LibraryManagement.Models
 {
-    public class BookModel
+    [Table("Books")]
+    public class Book
     {
+        private User _user;
+        public Book()
+        {
+        }
+        private ILazyLoader LazyLoader { get; set; }
+        private Book(ILazyLoader lazyLoader)
+        {
+            LazyLoader = lazyLoader;
+        }
+        [Key]
         public int id { get; set; }
         [DisplayName("Autor")]
         public string? author { get; set; }
@@ -15,7 +30,11 @@ namespace LibraryManagement.Models
         [DisplayName("Wydawca")]
         public string? publisher { get; set; }
         [DisplayName("Użytkownik")]
-        public virtual UserModel? user { get; set; }
+        [ForeignKey("User")]
+        public virtual User? user { 
+            get => LazyLoader.Load(this, ref _user); 
+            set => _user = value; 
+        }
         [DisplayName("Data zarezerwowania")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]

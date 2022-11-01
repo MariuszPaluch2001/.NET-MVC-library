@@ -10,30 +10,6 @@ namespace LibraryManagement.Controllers
 {
     public class BookController : Controller
     {
-        private static readonly IList<BookModel> books = new List<BookModel>()
-        {
-            new BookModel(){
-                id = 1,
-                author = "Autor",
-                title="title",
-                date=2022,
-                publisher="publisher",
-            },
-            new BookModel(){
-                id = 2,
-                author = "Autor2",
-                title="title2",
-                date=2022,
-                publisher="publisher2",
-            },
-            new BookModel(){
-                id = 3,
-                author = "Autor3",
-                title="title3",
-                date=2022,
-                publisher="publisher3",
-            }
-        };
 
         private IUserRepository userRepository;
         private IBookRepository bookRepository;
@@ -45,136 +21,125 @@ namespace LibraryManagement.Controllers
         // GET: BookController
         public ActionResult Index()
         {
-            return View(books);
+            return View(bookRepository.getBooks());
         }
 
         // GET: BookController/Details/5
         public ActionResult Details(int id)
         {
-            return View(books.FirstOrDefault( x=> x.id == id));
+            return View(bookRepository.GetBook(id));
         }
 
         // GET: BookController/Create
         public ActionResult Create()
         {
-            return View(new BookModel());
+            return View(new Book());
         }
 
         // POST: BookController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(BookModel bookModel)
+        public ActionResult Create(Book bookModel)
         {
-                bookModel.id = books.Count + 1;
-                books.Add(bookModel);
+                bookRepository.Add(bookModel);
                 return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         // GET: BookController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(books.FirstOrDefault(x => x.id == id));
+            return View(bookRepository.GetBook(id));
         }
 
         // POST: BookController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, BookModel bookModel)
+        public ActionResult Edit(int id, Book bookModel)
         {
-                BookModel? book = books.FirstOrDefault(x => x.id == id);
-                book.author = bookModel.author;
-                book.publisher = bookModel.publisher;
-                book.title = bookModel.title;
-                book.date = bookModel.date;
-                book.reserved = bookModel.reserved;
-                book.leased = bookModel.leased;
+                bookRepository.Update(id, bookModel);
                 return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         // GET: BookController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View(books.FirstOrDefault(x => x.id == id));
+            return View(bookRepository.GetBook(id));
         }
 
         // POST: BookController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, BookModel bookModel)
+        public ActionResult Delete(int id, Book bookModel)
         {
-           BookModel? book = books.FirstOrDefault(x => x.id == id);
-           if (book is not null)
-                books.Remove(book);
-           return RedirectToAction(nameof(HomeController.Index), "Home");
+            bookRepository.Delete(id);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public ActionResult EditDeleteList()
         {
-            return View(books);
+            return View(bookRepository.getBooks());
         }
         public ActionResult BooksToReserve()
         {
-            return View(books);
+            return View(bookRepository.getBooks());
         }
         public ActionResult Reserve(int id)
-        {
-            BookModel? book = books.FirstOrDefault(x => x.id == id);
-            book.reserved = DateTime.Today.Date;
-            book.user = userRepository.GetUser(HttpContext.Session.GetString("login"));
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+        { 
+
+            string? login = HttpContext.Session.GetString("login");
+            if (!string.IsNullOrEmpty(login))
+            {
+                User user = userRepository.GetUser(login);
+                bookRepository.ReserveBook(id, user);
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            else
+                return View();
 
         }
 
         public ActionResult BooksToLease()
         {
-            return View(books);
+            return View(bookRepository.getBooks());
         }
 
         public ActionResult Lease(int id)
         {
-            return View(books.FirstOrDefault(x => x.id == id));
+            return View(bookRepository.GetBook(id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Lease(int id, BookModel bookModel)
+        public ActionResult Lease(int id, Book bookModel)
         {
-            BookModel? book = books.FirstOrDefault(x => x.id == id);
-            if (book.reserved is not null && bookModel.leased > DateTime.Today.Date)
-            {
-                book.leased = bookModel.leased;
-            }
+
+            bookRepository.LeaseBook(id, bookModel);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public ActionResult BooksToReturn()
         {
-            return View(books);
+            return View(bookRepository.getBooks());
         }
         public ActionResult ReturnBook(int id)
         {
-            BookModel book = books.FirstOrDefault(x => x.id == id);
-            book.reserved = null;
-            book.leased = null;
-            book.user = null;
+            bookRepository.ReturnBook(id);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         public ActionResult SearchBook(string? searching)
         {
-            return View(books.Where(x => searching is null || x.title.Contains(searching)).ToList());
+            return View(bookRepository.Searching(searching));
         }
 
         public ActionResult UserReservedBooks()
         {
              string? login = HttpContext.Session.GetString("login");
-             return View(books.Where(x => x.user is not null && x.user.login == login).ToList());
+             return View(bookRepository.GetReservedBooks(login));
         }
         public ActionResult UndoReserve(int id)
         {
-            BookModel? book = books.FirstOrDefault(x => x.id == id);
-            book.reserved = null;
-            book.user = null;
+            bookRepository.UndoReserve(id);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }

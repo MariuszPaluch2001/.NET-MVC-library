@@ -5,9 +5,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace LibraryManagement.Models
 {
     [Table("Users")]
-    public class UserModel
+    public class User
     {
-        public int id { get; set; }
+        [Key]
+        public int UserID { get; set; }
         [Required(ErrorMessage = "Pole 'login' jest wymagane")]
         [DisplayName("Login")]
         public string? login { get; set; }
@@ -16,5 +17,7 @@ namespace LibraryManagement.Models
         public string? password { get; set; }
         [DisplayName("Administrator")]
         public bool isSuperUser { get; set; }
+
+        public virtual List<Book> books { get; set; }
     }
 }

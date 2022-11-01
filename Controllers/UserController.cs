@@ -32,7 +32,7 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public ActionResult Register(string login, string password, string password_repeat)
         {
-            UserModel user = userService.Register(login, password, password_repeat);
+            User user = userService.Register(login, password, password_repeat);
             if (user.login is not null)
             {
                 HttpContext.Session.SetString("login", login);
@@ -58,7 +58,7 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public ActionResult Login(string login, string password)
         {
-            UserModel user = userService.Login(login, password);
+            User user = userService.Login(login, password);
             if (user is not null)
             {
                 HttpContext.Session.SetString("login", login);
@@ -82,7 +82,7 @@ namespace LibraryManagement.Controllers
             string? login = HttpContext.Session.GetString("login");
             if (!string.IsNullOrEmpty(login))
             {
-                userRepository.Delete(userRepository.GetUser(login).id);
+                userRepository.Delete(userRepository.GetUser(login).UserID);
                 HttpContext.Session.Clear();
             }
             return RedirectToAction(nameof(HomeController.Index), "Home");

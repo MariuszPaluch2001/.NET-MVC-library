@@ -12,6 +12,7 @@ namespace LibraryManagement.Repositories
         }
         public void Add(Book book)
         {
+            book.bookAddTimestamp = System.DateTime.Now;
             _context.Books.Add(book);
             _context.SaveChanges();
         }

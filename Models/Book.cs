@@ -1,9 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Reflection.Metadata;
 
 namespace LibraryManagement.Models
 {
@@ -11,10 +9,8 @@ namespace LibraryManagement.Models
     public class Book
     {
         private User _user;
-        public Book()
-        {
-        }
         private ILazyLoader LazyLoader { get; set; }
+        public Book() { }
         private Book(ILazyLoader lazyLoader)
         {
             LazyLoader = lazyLoader;
@@ -22,12 +18,15 @@ namespace LibraryManagement.Models
         [Key]
         public int id { get; set; }
         [DisplayName("Autor")]
+        [MaxLength(30)]
         public string? author { get; set; }
         [DisplayName("Tytuł")]
+        [MaxLength(30)]
         public string? title { get; set; }
         [DisplayName("Data")]
         public int date { get; set; }
         [DisplayName("Wydawca")]
+        [MaxLength(50)]
         public string? publisher { get; set; }
         [DisplayName("Użytkownik")]
         [ForeignKey("User")]
@@ -43,5 +42,6 @@ namespace LibraryManagement.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? leased { get; set; }
+        public DateTime bookAddTimestamp { get; set; }
     }
 }

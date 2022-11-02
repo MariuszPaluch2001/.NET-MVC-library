@@ -1,6 +1,4 @@
 ﻿using LibraryManagement.Models;
-using NuGet.Protocol.Plugins;
-using static System.Reflection.Metadata.BlobBuilder;
 namespace LibraryManagement.Repositories
 {
     public class BookRepository : IBookRepository
@@ -27,11 +25,11 @@ namespace LibraryManagement.Repositories
             }
         }
 
-        public Book GetBook(int bookId)
+        public Book GetBook(int bookId) 
             => _context.Books.SingleOrDefault(x => x.id == bookId);
+
         public Book GetBook(string title)
             => _context.Books.SingleOrDefault(x => x.title == title);
-
 
         public IList<Book> getBooks()
             => _context.Books.ToList();

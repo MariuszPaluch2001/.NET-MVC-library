@@ -26,6 +26,7 @@ namespace LibraryManagement.Services
                 user.login = login;
                 user.password = password;
                 user.isSuperUser = false;
+                user.userCreateTimestamp = System.DateTime.Now;
                 userRepository.Add(user);
             }
             return user;

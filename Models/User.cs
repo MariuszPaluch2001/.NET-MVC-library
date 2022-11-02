@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -7,6 +8,13 @@ namespace LibraryManagement.Models
     [Table("Users")]
     public class User
     {
+        private List<Book> _books;
+        private ILazyLoader LazyLoader { get; set; }
+        public User() { }
+        private User(ILazyLoader lazyLoader)
+        {
+            LazyLoader = lazyLoader;
+        }
         [Key]
         public int UserID { get; set; }
         [Required(ErrorMessage = "Pole 'login' jest wymagane")]
@@ -20,6 +28,11 @@ namespace LibraryManagement.Models
         [DisplayName("Administrator")]
         public bool isSuperUser { get; set; }
 
-        public virtual List<Book> books { get; set; }
+        public virtual List<Book> books
+        {
+            get => LazyLoader.Load(this, ref _books);
+            set => _books = value;
+        }
+        public DateTime userCreateTimestamp { get; set; }
     }
 }

@@ -23,10 +23,10 @@ namespace LibraryManagement.Services
             User user = new User();
             if (userRepository.GetUser(login) is null && password == password_repeat)
             {
-                user.login = login;
-                user.password = password;
-                user.isSuperUser = false;
-                user.userCreateTimestamp = System.DateTime.Now;
+                user.Login = login;
+                user.Password = password;
+                user.IsSuperUser = false;
+                user.UserCreateTimestamp = System.DateTime.Now;
                 userRepository.Add(user);
             }
             return user;

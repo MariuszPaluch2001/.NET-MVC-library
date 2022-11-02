@@ -10,14 +10,14 @@ namespace LibraryManagement.Repositories
         }
         public void Add(Book book)
         {
-            book.bookAddTimestamp = System.DateTime.Now;
+            book.BookAddTimestamp = System.DateTime.Now;
             _context.Books.Add(book);
             _context.SaveChanges();
         }
 
         public void Delete(int bookId)
         {
-            var result = _context.Books.SingleOrDefault(x => x.id == bookId);
+            var result = _context.Books.SingleOrDefault(x => x.BookId == bookId);
             if (result is not null)
             {
                 _context.Books.Remove(result);
@@ -25,72 +25,81 @@ namespace LibraryManagement.Repositories
             }
         }
 
-        public Book GetBook(int bookId) 
-            => _context.Books.SingleOrDefault(x => x.id == bookId);
+        public Book? GetBook(int bookId) 
+            => _context.Books.SingleOrDefault(x => x.BookId == bookId);
 
-        public Book GetBook(string title)
-            => _context.Books.SingleOrDefault(x => x.title == title);
+        public Book? GetBook(string title)
+            => _context.Books.SingleOrDefault(x => x.Title == title);
 
         public IList<Book> getBooks()
             => _context.Books.ToList();
 
         public void Update(int bookId, Book book)
         {
-            var result = _context.Books.SingleOrDefault(x => x.id == bookId);
+            var result = _context.Books.SingleOrDefault(x => x.BookId == bookId);
             if (result is not null)
             {
-                result.author = book.author;
-                result.publisher = book.publisher;
-                result.title = book.title;
-                result.date = book.date;
-                result.reserved = book.reserved;
-                result.leased = book.leased;
+                result.Author = book.Author;
+                result.Publisher = book.Publisher;
+                result.Title = book.Title;
+                result.Date = book.Date;
+                result.Reserved = book.Reserved;
+                result.Leased = book.Leased;
                 _context.SaveChanges();
             }
         }
 
         public IList<Book> Searching(string? searching)
         {
-                return _context.Books.Where( x => searching == null || x.title.Contains(searching)).ToList();
+                return _context.Books.Where( x => searching == null || x.Title.Contains(searching)).ToList();
         }
 
         public void UndoReserve(int bookId)
         {
             Book? book = GetBook(bookId);
-            book.user = null;
-            book.user.books.Remove(book);
-            book.reserved = null;
-            _context.SaveChanges();
+            if (book is not null && book.user is not null)
+            {
+                book.user.Books.Remove(book);
+                book.Reserved = null;
+                book.user = null;
+                _context.SaveChanges();
+            }
         }
         public void ReturnBook(int bookId)
         {
             Book? book = GetBook(bookId);
-            book.reserved = null;
-            book.leased = null;
-            book.user = null;
-            book.user.books.Remove(book);
-            _context.SaveChanges();
+            if (book is not null && book.user is not null)
+            {
+                book.user.Books.Remove(book);
+                book.Reserved = null;
+                book.Leased = null;
+                book.user = null;
+                _context.SaveChanges();
+            }
         }
 
         public void ReserveBook(int bookId, User user)
         {
-            Book book = GetBook(bookId);
-            book.reserved = DateTime.Today.Date;
-            book.user = user;
-            _context.SaveChanges();
+            Book? book = GetBook(bookId);
+            if (book is not null)
+            {
+                book.Reserved = DateTime.Today.Date;
+                book.user = user;
+                _context.SaveChanges();
+            }
         }
 
         public IList<Book> GetReservedBooks(string? login)
         {
-            return _context.Books.Where(x => x.user != null && x.user.login == login).ToList();
+            return _context.Books.Where(x => x.user != null && x.user.Login == login).ToList();
         }
 
         public void LeaseBook(int bookId, Book book)
         {
-            var result = _context.Books.FirstOrDefault(x => x.id == bookId);
-            if (result is not null && result.reserved is not null && book.leased > DateTime.Today.Date)
+            var result = _context.Books.FirstOrDefault(x => x.BookId == bookId);
+            if (result is not null && result.Reserved is not null && book.Leased > DateTime.Today.Date)
             {
-                result.leased = book.leased;
+                result.Leased = book.Leased;
                 _context.SaveChanges();
             }
         }

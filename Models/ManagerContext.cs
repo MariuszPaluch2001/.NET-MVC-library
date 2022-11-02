@@ -16,8 +16,8 @@ namespace LibraryManagement.Models
                 entity.HasKey(e => e.UserID);
             });
             modelBuilder.Entity<Book>(entity => {
-                entity.HasKey(e => e.id);
-                entity.HasOne(d => d.user).WithMany(u => u.books);
+                entity.HasKey(e => e.BookId);
+                entity.HasOne(d => d.user).WithMany(u => u.Books);
             });
 
         }

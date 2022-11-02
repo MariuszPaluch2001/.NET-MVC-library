@@ -27,9 +27,9 @@ namespace LibraryManagement.Repositories
         }
 
         public User GetUser(string login)
-            => _context.Users.SingleOrDefault(x => x.login == login);
+            => _context.Users.SingleOrDefault(x => x.Login == login);
         public User GetUser(string login, string password)
-            => _context.Users.SingleOrDefault(x => x.login == login && x.password == password);
+            => _context.Users.SingleOrDefault(x => x.Login == login && x.Password == password);
         public User GetUser(int id)
             => _context.Users.SingleOrDefault(x => x.UserID == id);
 
@@ -41,8 +41,8 @@ namespace LibraryManagement.Repositories
             var result = _context.Users.SingleOrDefault(x => x.UserID == userId);
             if (result is not null)
             {
-                result.login = user.login;
-                result.password = user.password;
+                result.Login = user.Login;
+                result.Password = user.Password;
             }
         }
     }

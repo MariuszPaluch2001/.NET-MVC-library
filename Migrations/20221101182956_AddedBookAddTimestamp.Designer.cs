@@ -32,41 +32,41 @@ namespace LibraryManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"), 1L, 1);
 
-                    b.Property<int?>("User")
+                    b.Property<int?>("Owner")
                         .HasColumnType("int");
 
-                    b.Property<string>("author")
+                    b.Property<string>("Author")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<DateTime>("bookAddTimestamp")
+                    b.Property<DateTime>("BookAddTimestamp")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("date")
+                    b.Property<int>("Date")
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("leased")
+                    b.Property<DateTime?>("Leased")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("publisher")
+                    b.Property<string>("Publisher")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime?>("reserved")
+                    b.Property<DateTime?>("Reserved")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("title")
+                    b.Property<string>("Title")
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("User");
+                    b.HasIndex("Owner");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Models.User", b =>
+            modelBuilder.Entity("LibraryManagement.Models.Owner", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -94,14 +94,14 @@ namespace LibraryManagement.Migrations
 
             modelBuilder.Entity("LibraryManagement.Models.Book", b =>
                 {
-                    b.HasOne("LibraryManagement.Models.User", "user")
+                    b.HasOne("LibraryManagement.Models.Owner", "Owner")
                         .WithMany("books")
-                        .HasForeignKey("User");
+                        .HasForeignKey("Owner");
 
-                    b.Navigation("user");
+                    b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Models.User", b =>
+            modelBuilder.Entity("LibraryManagement.Models.Owner", b =>
                 {
                     b.Navigation("books");
                 });

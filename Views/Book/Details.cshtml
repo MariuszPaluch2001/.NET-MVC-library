@@ -9,48 +9,48 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.author)
+            @Html.DisplayNameFor(model => model.Author)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.author)
+            @Html.DisplayFor(model => model.Author)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.title)
+            @Html.DisplayNameFor(model => model.Title)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.title)
+            @Html.DisplayFor(model => model.Title)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.date)
+            @Html.DisplayNameFor(model => model.Date)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.date)
+            @Html.DisplayFor(model => model.Date)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.publisher)
+            @Html.DisplayNameFor(model => model.Publisher)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.publisher)
+            @Html.DisplayFor(model => model.Publisher)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.reserved)
+            @Html.DisplayNameFor(model => model.Reserved)
         </dt>
         <dd class = "col-sm-10">
-            @if (Model.reserved is not null)
+            @if (Model.Reserved is not null)
             {
-                @Html.DisplayFor(model => model.reserved)
+                @Html.DisplayFor(model => model.Reserved)
             }
             else{
                 <text>-----</text>
             }
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.leased)
+            @Html.DisplayNameFor(model => model.Leased)
         </dt>
         <dd class = "col-sm-10">
-            @if (Model.leased is not null)
+            @if (Model.Leased is not null)
             {
-                @Html.DisplayFor(model => model.leased)
+                @Html.DisplayFor(model => model.Leased)
             }
             else
             {
@@ -61,22 +61,22 @@
     </dl>
 </div>
 <div class="col-lg-5">
-    @if (ViewBag.login is not null && Model.reserved is null)
+    @if (ViewBag.login is not null && Model.Reserved is null)
     {
-        <span>@Html.ActionLink("Zarezerwuj", "Reserve", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
+        <span>@Html.ActionLink("Zarezerwuj", "Reserve", new { id = Model.BookId }, new {@class = "btn btn-primary"})</span>
     }
-    @if (ViewBag.isSuperUser =="true" && Model.leased is null && Model.reserved is not null)
+    @if (ViewBag.isSuperUser =="true" && Model.Leased is null && Model.Reserved is not null)
     {
-        <span>@Html.ActionLink("Wypożycz", "Lease", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
+        <span>@Html.ActionLink("Wypożycz", "Lease", new { id = Model.BookId }, new {@class = "btn btn-primary"})</span>
     }
-    @if (ViewBag.isSuperUser =="true" && Model.leased is not null)
+    @if (ViewBag.isSuperUser =="true" && Model.Leased is not null)
     {
-        <span>@Html.ActionLink("Zwróć", "ReturnBook", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
+        <span>@Html.ActionLink("Zwróć", "ReturnBook", new { id = Model.BookId }, new {@class = "btn btn-primary"})</span>
     }
     @if (ViewBag.isSuperUser == "true")
     {
-        <span>@Html.ActionLink("Edytuj", "Edit", new { id = Model.id }, new {@class = "btn btn-primary"})</span>
-        <span>@Html.ActionLink("Usuń", "Delete", new { id = Model.id }, new {@class = "btn btn-danger"})</span>
+        <span>@Html.ActionLink("Edytuj", "Edit", new { id = Model.BookId }, new {@class = "btn btn-primary"})</span>
+        <span>@Html.ActionLink("Usuń", "Delete", new { id = Model.BookId }, new {@class = "btn btn-danger"})</span>
     }
 
 </div>

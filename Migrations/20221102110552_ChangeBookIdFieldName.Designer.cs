@@ -4,6 +4,7 @@ using LibraryManagement.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LibraryManagement.Migrations
 {
     [DbContext(typeof(ManagerContext))]
-    partial class ManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20221102110552_ChangeBookIdFieldName")]
+    partial class ChangeBookIdFieldName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +32,10 @@ namespace LibraryManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookId"), 1L, 1);
 
+                    b.Property<int?>("Owner")
+                        .HasColumnType("int");
+
                     b.Property<string>("Author")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -45,7 +49,6 @@ namespace LibraryManagement.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Publisher")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -53,21 +56,17 @@ namespace LibraryManagement.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("User")
-                        .HasColumnType("int");
-
                     b.HasKey("BookId");
 
-                    b.HasIndex("User");
+                    b.HasIndex("Owner");
 
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Models.User", b =>
+            modelBuilder.Entity("LibraryManagement.Models.Owner", b =>
                 {
                     b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
@@ -75,20 +74,20 @@ namespace LibraryManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
 
-                    b.Property<bool>("IsSuperUser")
+                    b.Property<bool>("isSuperUser")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Login")
+                    b.Property<string>("login")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("password")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<DateTime>("UserCreateTimestamp")
+                    b.Property<DateTime>("userCreateTimestamp")
                         .HasColumnType("datetime2");
 
                     b.HasKey("UserID");
@@ -98,16 +97,16 @@ namespace LibraryManagement.Migrations
 
             modelBuilder.Entity("LibraryManagement.Models.Book", b =>
                 {
-                    b.HasOne("LibraryManagement.Models.User", "user")
-                        .WithMany("Books")
-                        .HasForeignKey("User");
+                    b.HasOne("LibraryManagement.Models.Owner", "Owner")
+                        .WithMany("books")
+                        .HasForeignKey("Owner");
 
-                    b.Navigation("user");
+                    b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("LibraryManagement.Models.User", b =>
+            modelBuilder.Entity("LibraryManagement.Models.Owner", b =>
                 {
-                    b.Navigation("Books");
+                    b.Navigation("books");
                 });
 #pragma warning restore 612, 618
         }

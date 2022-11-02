@@ -33,13 +33,13 @@ namespace LibraryManagement.Controllers
         public ActionResult Register(string login, string password, string password_repeat)
         {
             User user = userService.Register(login, password, password_repeat);
-            if (user.login is not null)
+            if (user.Login is not null)
             {
                 TempData["Message"] = "Zostałeś zarejestrowany.";
                 HttpContext.Session.SetString("login", login);
-                HttpContext.Session.SetString("isSuperUser", user.isSuperUser ? "true" : "false");
+                HttpContext.Session.SetString("isSuperUser", user.IsSuperUser ? "true" : "false");
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
             else
             {
@@ -66,7 +66,7 @@ namespace LibraryManagement.Controllers
             {
                 TempData["Message"] = "Zostałeś zalogowany.";
                 HttpContext.Session.SetString("login", login);
-                HttpContext.Session.SetString("isSuperUser", user.isSuperUser ? "true" : "false");
+                HttpContext.Session.SetString("isSuperUser", user.IsSuperUser ? "true" : "false");
             }
             else
             {
@@ -87,7 +87,7 @@ namespace LibraryManagement.Controllers
             if (!string.IsNullOrEmpty(login))
             {
                 User user = userRepository.GetUser(login);
-                if (user.books.Count() == 0)
+                if (user.Books.Count() == 0)
                 {
                     TempData["Message"] = "Konto zostało usunięte.";
                     userRepository.Delete(userRepository.GetUser(login).UserID);

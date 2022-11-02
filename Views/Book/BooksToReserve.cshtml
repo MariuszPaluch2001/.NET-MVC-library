@@ -11,16 +11,16 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.author)
+                    @Html.DisplayNameFor(model => model.Author)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.title)
+                    @Html.DisplayNameFor(model => model.Title)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.date)
+                    @Html.DisplayNameFor(model => model.Date)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.publisher)
+                    @Html.DisplayNameFor(model => model.Publisher)
                 </th>
                 <th></th>
             </tr>
@@ -28,23 +28,23 @@
         <tbody>
             @foreach (var item in Model)
             {
-                @if (item.reserved is null)
+                @if (item.Reserved is null)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.author)
+                            @Html.DisplayFor(modelItem => item.Author)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.title)
+                            @Html.DisplayFor(modelItem => item.Title)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.date)
+                            @Html.DisplayFor(modelItem => item.Date)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.publisher)
+                            @Html.DisplayFor(modelItem => item.Publisher)
                         </td>
                         <td>
-                            @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.id }, new {@class = "btn btn-primary"})
+                            @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.BookId }, new {@class = "btn btn-primary"})
                         </td>
                     </tr>
                 }

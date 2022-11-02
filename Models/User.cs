@@ -20,19 +20,19 @@ namespace LibraryManagement.Models
         [Required(ErrorMessage = "Pole 'login' jest wymagane")]
         [MaxLength(30)]
         [DisplayName("Login")]
-        public string? login { get; set; }
+        public string Login { get; set; }
         [Required(ErrorMessage = "Pole 'hasło' jest wymagane")]
         [MaxLength(50)]
         [DisplayName("Hasło")]
-        public string? password { get; set; }
+        public string Password { get; set; }
         [DisplayName("Administrator")]
-        public bool isSuperUser { get; set; }
+        public bool IsSuperUser { get; set; }
 
-        public virtual List<Book> books
+        public virtual List<Book> Books
         {
             get => LazyLoader.Load(this, ref _books);
             set => _books = value;
         }
-        public DateTime userCreateTimestamp { get; set; }
+        public DateTime UserCreateTimestamp { get; set; }
     }
 }

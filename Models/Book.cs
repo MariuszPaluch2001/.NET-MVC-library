@@ -16,18 +16,18 @@ namespace LibraryManagement.Models
             LazyLoader = lazyLoader;
         }
         [Key]
-        public int id { get; set; }
+        public int BookId { get; set; }
         [DisplayName("Autor")]
         [MaxLength(30)]
-        public string? author { get; set; }
+        public string Author { get; set; }
         [DisplayName("Tytuł")]
         [MaxLength(30)]
-        public string? title { get; set; }
+        public string Title { get; set; }
         [DisplayName("Data")]
-        public int date { get; set; }
+        public int Date { get; set; }
         [DisplayName("Wydawca")]
         [MaxLength(50)]
-        public string? publisher { get; set; }
+        public string Publisher { get; set; }
         [DisplayName("Użytkownik")]
         [ForeignKey("User")]
         public virtual User? user { 
@@ -37,11 +37,11 @@ namespace LibraryManagement.Models
         [DisplayName("Data zarezerwowania")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? reserved { get; set; }
+        public DateTime? Reserved { get; set; }
         [DisplayName("Data wypożyczenia")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime? leased { get; set; }
-        public DateTime bookAddTimestamp { get; set; }
+        public DateTime? Leased { get; set; }
+        public DateTime BookAddTimestamp { get; set; }
     }
 }

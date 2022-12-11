@@ -8,7 +8,7 @@ namespace LibraryManagement.Models
     [Table("Books")]
     public class Book
     {
-        private User _user;
+        private User? _user;
         private ILazyLoader LazyLoader { get; set; }
         public Book() { }
         private Book(ILazyLoader lazyLoader)
@@ -43,5 +43,7 @@ namespace LibraryManagement.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Leased { get; set; }
         public DateTime BookAddTimestamp { get; set; }
+        [ConcurrencyCheck]
+        public Guid Version { get; set; }
     }
 }

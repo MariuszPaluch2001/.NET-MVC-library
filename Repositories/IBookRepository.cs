@@ -7,13 +7,13 @@ namespace LibraryManagement.Repositories
         Book? GetBook(int bookId);
         Book? GetBook(string title);
         void Add(Book user);
-        void Update(int bookId, Book book);
+        void Update(int bookId, Book? book);
         void Delete(int bookId);
 
         void UndoReserve(int bookId);
         void ReturnBook(int bookId);
-        void LeaseBook(int bookId, Book book);
-        void ReserveBook(int bookId, User user);
+        void LeaseBook(int bookId, Book? book);
+        void ReserveBook(int bookId, User? user);
 
         IList<Book> GetReservedBooks(string? login);
         IList<Book> Searching(string? searching);

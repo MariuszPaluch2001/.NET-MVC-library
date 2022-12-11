@@ -8,7 +8,7 @@ namespace LibraryManagement.Models
     [Table("Users")]
     public class User
     {
-        private List<Book> _books;
+        private List<Book>? _books;
         private ILazyLoader LazyLoader { get; set; }
         public User() { }
         private User(ILazyLoader lazyLoader)
@@ -28,7 +28,7 @@ namespace LibraryManagement.Models
         [DisplayName("Administrator")]
         public bool IsSuperUser { get; set; }
 
-        public virtual List<Book> Books
+        public virtual List<Book>? Books
         {
             get => LazyLoader.Load(this, ref _books);
             set => _books = value;

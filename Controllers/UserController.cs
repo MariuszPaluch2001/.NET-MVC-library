@@ -1,11 +1,7 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Repositories;
 using LibraryManagement.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
-using System.Web;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace LibraryManagement.Controllers
 { 
@@ -32,8 +28,8 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public ActionResult Register(string login, string password, string password_repeat)
         {
-            User user = userService.Register(login, password, password_repeat);
-            if (user.Login is not null)
+            User? user = userService.Register(login, password, password_repeat);
+            if (user is not null && user.Login is not null)
             {
                 TempData["Message"] = "Zostałeś zarejestrowany.";
                 HttpContext.Session.SetString("login", login);
@@ -61,7 +57,7 @@ namespace LibraryManagement.Controllers
         [HttpPost]
         public ActionResult Login(string login, string password)
         {
-            User user = userService.Login(login, password);
+            User? user = userService.Login(login, password);
             if (user is not null)
             {
                 TempData["Message"] = "Zostałeś zalogowany.";
@@ -86,11 +82,11 @@ namespace LibraryManagement.Controllers
             string? login = HttpContext.Session.GetString("login");
             if (!string.IsNullOrEmpty(login))
             {
-                User user = userRepository.GetUser(login);
-                if (user.Books.Count() == 0)
+                User? user = userRepository.GetUser(login);
+                if (user is not null && user.Books is not null && user.Books.Count() == 0)
                 {
                     TempData["Message"] = "Konto zostało usunięte.";
-                    userRepository.Delete(userRepository.GetUser(login).UserID);
+                    userRepository.Delete(user.UserID);
                     HttpContext.Session.Clear();
                 }
                 else

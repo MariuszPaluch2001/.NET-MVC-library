@@ -1,19 +1,18 @@
 ﻿using LibraryManagement.Models;
 using LibraryManagement.Repositories;
-using NuGet.Protocol.Plugins;
 
 namespace LibraryManagement.Services
 {
     public class UserServiceImpl : UserService
     {
-        private IUserRepository userRepository;
+        private readonly IUserRepository userRepository;
         public UserServiceImpl(IUserRepository _userRepository)
         {
             userRepository = _userRepository;
         }
 
         
-        public User Login(string login, string password)
+        public User? Login(string login, string password)
         {
             return userRepository.GetUser(login, password);
         }

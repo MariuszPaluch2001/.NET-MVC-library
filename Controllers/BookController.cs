@@ -1,10 +1,7 @@
 ﻿using LibraryManagement.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Policy;
-using System;
-using LibraryManagement.Services;
 using LibraryManagement.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace LibraryManagement.Controllers
 {
@@ -56,8 +53,14 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Book bookModel)
         {
+            try{
                 bookRepository.Update(id, bookModel);
+            }
+            catch (DbUpdateConcurrencyException ex){
+                TempData["MessageErr"] = $"Could not write to database. Error: {ex.Message}!";
                 return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         // GET: BookController/Delete/5
@@ -71,7 +74,13 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Book bookModel)
         {
-            bookRepository.Delete(id);
+            try{
+                bookRepository.Delete(id);
+            }
+            catch (DbUpdateConcurrencyException ex){
+                TempData["MessageErr"] = $"Could not write to database. Error: {ex.Message}!";
+                return RedirectToAction(nameof(HomeController.Index), "Home");
+            }
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -89,8 +98,14 @@ namespace LibraryManagement.Controllers
             string? login = HttpContext.Session.GetString("login");
             if (!string.IsNullOrEmpty(login))
             {
-                User user = userRepository.GetUser(login);
-                bookRepository.ReserveBook(id, user);
+                User? user = userRepository.GetUser(login);
+                try{
+                    bookRepository.ReserveBook(id, user);
+                }
+                catch (DbUpdateConcurrencyException ex){
+                    TempData["MessageErr"] = $"Could not write to database. Error: {ex.Message}!";
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }
                 return RedirectToAction(nameof(HomeController.Index), "Home");
             }
             else
@@ -112,7 +127,6 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Lease(int id, Book bookModel)
         {
-
             bookRepository.LeaseBook(id, bookModel);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }

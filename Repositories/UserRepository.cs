@@ -1,5 +1,4 @@
 ﻿using LibraryManagement.Models;
-using Microsoft.EntityFrameworkCore;
 namespace LibraryManagement.Repositories
 {
     public class UserRepository : IUserRepository
@@ -26,11 +25,11 @@ namespace LibraryManagement.Repositories
             }
         }
 
-        public User GetUser(string login)
+        public User? GetUser(string login)
             => _context.Users.SingleOrDefault(x => x.Login == login);
-        public User GetUser(string login, string password)
+        public User? GetUser(string login, string password)
             => _context.Users.SingleOrDefault(x => x.Login == login && x.Password == password);
-        public User GetUser(int id)
+        public User? GetUser(int id)
             => _context.Users.SingleOrDefault(x => x.UserID == id);
 
         public IList<User> getUsers()

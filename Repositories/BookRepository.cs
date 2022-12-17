@@ -48,9 +48,9 @@ namespace LibraryManagement.Repositories
                 result.Date = book.Date;
                 result.Reserved = book.Reserved;
                 result.Leased = book.Leased;
-                _context.Entry(result).Property("TimeStamp").OriginalValue = book.TimeStamp;
+                var entry = _context.Entry(result);
+                entry.OriginalValues["TimeStamp"] = book.TimeStamp;
                 _context.Update(result);
-
                 _context.SaveChanges();
             }
         }
@@ -71,7 +71,6 @@ namespace LibraryManagement.Repositories
                 book.user.Books.Remove(book);
                 book.Reserved = null;
                 book.user = null;
-               // book.Version = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }
@@ -87,7 +86,6 @@ namespace LibraryManagement.Repositories
                 book.Reserved = null;
                 book.Leased = null;
                 book.user = null;
-               // book.Version = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }
@@ -99,7 +97,9 @@ namespace LibraryManagement.Repositories
             {
                 book.Reserved = DateTime.Today.Date;
                 book.user = user;
-                _context.Entry(book).Property("TimeStamp").OriginalValue = timestamp;
+                var entry = _context.Entry(book);
+                entry.OriginalValues["TimeStamp"] = timestamp;
+                entry.CurrentValues.SetValues(book);
                 _context.Update(book);
                 _context.SaveChanges();
             }
@@ -118,7 +118,6 @@ namespace LibraryManagement.Repositories
                 book is not null && 
                 book.Leased > DateTime.Today.Date)
             {
-               // result.Version = Guid.NewGuid();
                 result.Leased = book.Leased;
                 _context.SaveChanges();
             }

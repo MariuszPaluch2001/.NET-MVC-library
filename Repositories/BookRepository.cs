@@ -1,4 +1,5 @@
 ﻿using LibraryManagement.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Data;
 
 namespace LibraryManagement.Repositories
@@ -13,7 +14,6 @@ namespace LibraryManagement.Repositories
         public void Add(Book book)
         {
             book.BookAddTimestamp = System.DateTime.Now;
-            book.Version = Guid.NewGuid();
             _context.Books.Add(book);
             _context.SaveChanges();
         }
@@ -23,7 +23,6 @@ namespace LibraryManagement.Repositories
             var result = _context.Books.SingleOrDefault(x => x.BookId == bookId);
             if (result is not null)
             {
-                result.Version = Guid.NewGuid();
                 _context.Books.Remove(result);
                 _context.SaveChanges();
             }
@@ -40,7 +39,7 @@ namespace LibraryManagement.Repositories
 
         public void Update(int bookId, Book? book)
         {
-            var result = _context.Books.SingleOrDefault(x => x.BookId == bookId);
+            var result = GetBook(bookId);
             if (book is not null && result is not null)
             {
                 result.Author = book.Author;
@@ -49,7 +48,9 @@ namespace LibraryManagement.Repositories
                 result.Date = book.Date;
                 result.Reserved = book.Reserved;
                 result.Leased = book.Leased;
-                result.Version = Guid.NewGuid();
+                _context.Entry(result).Property("TimeStamp").OriginalValue = book.TimeStamp;
+                _context.Update(result);
+
                 _context.SaveChanges();
             }
         }
@@ -70,7 +71,7 @@ namespace LibraryManagement.Repositories
                 book.user.Books.Remove(book);
                 book.Reserved = null;
                 book.user = null;
-                book.Version = Guid.NewGuid();
+               // book.Version = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }
@@ -86,19 +87,20 @@ namespace LibraryManagement.Repositories
                 book.Reserved = null;
                 book.Leased = null;
                 book.user = null;
-                book.Version = Guid.NewGuid();
+               // book.Version = Guid.NewGuid();
                 _context.SaveChanges();
             }
         }
 
-        public void ReserveBook(int bookId, User? user)
+        public void ReserveBook(int bookId, User? user, byte[] timestamp)
         {
             Book? book = GetBook(bookId);
             if (book is not null)
             {
                 book.Reserved = DateTime.Today.Date;
                 book.user = user;
-                book.Version = Guid.NewGuid();
+                _context.Entry(book).Property("TimeStamp").OriginalValue = timestamp;
+                _context.Update(book);
                 _context.SaveChanges();
             }
         }
@@ -116,7 +118,7 @@ namespace LibraryManagement.Repositories
                 book is not null && 
                 book.Leased > DateTime.Today.Date)
             {
-                result.Version = Guid.NewGuid();
+               // result.Version = Guid.NewGuid();
                 result.Leased = book.Leased;
                 _context.SaveChanges();
             }

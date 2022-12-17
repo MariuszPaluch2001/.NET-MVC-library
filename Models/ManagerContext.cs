@@ -20,9 +20,6 @@ namespace LibraryManagement.Models
                 entity.HasOne(d => d.user).WithMany(u => u.Books);
             });
 
-            modelBuilder.Entity<Book>()
-            .Property(p => p.Version)
-            .IsConcurrencyToken();
         }
         public DbSet<Book> Books { get; set; }
         public DbSet<User> Users { get; set; }

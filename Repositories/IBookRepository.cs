@@ -13,7 +13,7 @@ namespace LibraryManagement.Repositories
         void UndoReserve(int bookId);
         void ReturnBook(int bookId);
         void LeaseBook(int bookId, Book? book);
-        void ReserveBook(int bookId, User? user);
+        void ReserveBook(int bookId, User? user, byte[] timestamp);
 
         IList<Book> GetReservedBooks(string? login);
         IList<Book> Searching(string? searching);

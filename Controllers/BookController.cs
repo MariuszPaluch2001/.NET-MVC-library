@@ -74,13 +74,7 @@ namespace LibraryManagement.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Book bookModel)
         {
-            try{
-                bookRepository.Delete(id);
-            }
-            catch (DbUpdateConcurrencyException ex){
-                TempData["MessageErr"] = $"Could not write to database. Error: {ex.Message}!";
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
+            bookRepository.Delete(id);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -92,7 +86,8 @@ namespace LibraryManagement.Controllers
         {
             return View(bookRepository.getBooks());
         }
-        public ActionResult Reserve(int id)
+        [HttpPost]
+        public ActionResult Reserve(int id, byte[] timestamp)
         { 
 
             string? login = HttpContext.Session.GetString("login");
@@ -100,7 +95,7 @@ namespace LibraryManagement.Controllers
             {
                 User? user = userRepository.GetUser(login);
                 try{
-                    bookRepository.ReserveBook(id, user);
+                    bookRepository.ReserveBook(id, user, timestamp);
                 }
                 catch (DbUpdateConcurrencyException ex){
                     TempData["MessageErr"] = $"Could not write to database. Error: {ex.Message}!";

@@ -44,7 +44,15 @@
                             @Html.DisplayFor(modelItem => item.Publisher)
                         </td>
                         <td>
-                            @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.BookId }, new {@class = "btn btn-primary"})
+                            <form asp-action="Reserve" asp-route-id="@item.BookId" method="post">
+                                <input type="hidden" name="timestamp" asp-for="@item.TimeStamp" />
+                                <div class="form-actions no-color">
+                                    <input type="submit" value="Zarezerwuj" class="btn btn-primary" />
+                                </div>
+                            </form>
+                            @*
+                @Html.ActionLink("Zarezerwuj", "Reserve", new { id=item.BookId }, new {@class = "btn btn-primary"})
+                            *@
                         </td>
                     </tr>
                 }

@@ -43,7 +43,8 @@ namespace LibraryManagement.Models
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime? Leased { get; set; }
         public DateTime BookAddTimestamp { get; set; }
-        [ConcurrencyCheck]
-        public Guid Version { get; set; }
+        [Timestamp]
+        public byte[] TimeStamp { get; set; }
+
     }
 }

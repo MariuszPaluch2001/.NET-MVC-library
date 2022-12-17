@@ -61,12 +61,10 @@
                         @Html.DisplayFor(modelItem => item.Leased)
                     </td>
                     <td>
-                        <span>
-                            @Html.ActionLink("Edytuj", "Edit", new { id=item.BookId }, new {@class="btn btn-primary"})
-                        </span>
-                        <span>
-                            @Html.ActionLink("Usuń", "Delete", new { id=item.BookId }, new {@class="btn btn-danger"})
-                        </span>
+                        @Html.ActionLink("Edytuj", "Edit", new { id=item.BookId, timeStamp=item.TimeStamp }, new {@class="btn btn-primary"})
+                    </td>
+                    <td>
+                         @Html.ActionLink("Usuń", "Delete", new { id=item.BookId }, new {@class="btn btn-danger"})
                     </td>
                 </tr>
             }
